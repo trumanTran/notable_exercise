@@ -34,6 +34,7 @@ class App extends React.Component {
 
   // GET request to retrieve appointments belonging to selected physician
   getAppointments = physicanId => {
+    this.setState({ appointments: [] });
     let ref = Firebase.database().ref('/Appointments');
     let appointmentArr = [];
     ref
@@ -42,8 +43,8 @@ class App extends React.Component {
       .on('child_added', snapshot => {
         const appointment = snapshot.val();
         appointmentArr.push(appointment);
+        this.setState({ appointments: appointmentArr });
       });
-    this.setState({ appointments: appointmentArr });
   };
 
   // Select Physician
